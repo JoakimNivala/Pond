@@ -1,19 +1,19 @@
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FishingRod : MonoBehaviour
+public class NPCMovement : MonoBehaviour
 {
-    public GameObject Bobber;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+ 
     public NavMeshAgent agent;
     public float range; //radius of sphere
     public Transform centerPoint; //centre of the area the agent wants to move around in
-  
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        centerPoint = GameObject.Find("PondCenter").GetComponent<Transform>();
+    
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -22,8 +22,7 @@ public class FishingRod : MonoBehaviour
     {
 
 
-        if (Bobber == null)
-        {
+        
             if (agent.remainingDistance <= agent.stoppingDistance) //done with path
             {
                 Vector3 point;
@@ -32,18 +31,11 @@ public class FishingRod : MonoBehaviour
                     Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
                     agent.SetDestination(point);
                 }
-            }
+           
         }
-        else
-        {
-            Debug.Log("ok");
-            transform.SetParent(Bobber.transform);
-            transform.position = Bobber.transform.position;
-            gameObject.GetComponent<Collider>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
-        }
-
       
+
+
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -61,11 +53,5 @@ public class FishingRod : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
-    private void OnCollisionEnter(Collision other)
-    {
-        if(other.gameObject.tag == "Bobber")
-        {
-            Bobber = other.gameObject;
-        }
-    }
+  
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FishingRod2 : MonoBehaviour
+public class BobberSound : MonoBehaviour
 {
     public AudioSource AudioSource;
     public AudioClip audioClip;
