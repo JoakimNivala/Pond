@@ -15,7 +15,7 @@ public class MovementScript : MonoBehaviour
     private float playerSpeed = 5.0f;
     private float gravityValue = 0.15f;
     private RaycastHit hit;
-    private GameObject FishingRod;
+    //private GameObject FishingRod;
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -43,15 +43,15 @@ public class MovementScript : MonoBehaviour
         controller = GetComponent<CharacterController>();
         orientation = GetComponent<Transform>();
         cam = Camera.main;
-        FishingRod = GameObject.Find("FishingRod");
-        RodPosition = FishingRod.transform.rotation;
+        //FishingRod = GameObject.Find("FishingRod");
+        //RodPosition = FishingRod.transform.rotation;
     }
 
 
     private void Update()
     {
         mouse += Input.mouseScrollDelta.y * ScrollSpeed;
-        FishingRod.transform.localRotation = Quaternion.Euler(mouse, transform.rotation.y, transform.rotation.z);
+        //FishingRod.transform.localRotation = Quaternion.Euler(mouse, transform.rotation.y, transform.rotation.z);
 
         if (Input.GetKeyUp(KeyCode.Space) && m_jumping == false && grounded)
         {
@@ -70,11 +70,11 @@ public class MovementScript : MonoBehaviour
                 jumpTime = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            activeRod = !activeRod;
-            FishingRod.SetActive(activeRod);
-        }
+        //if (Input.GetKeyUp(KeyCode.E))
+        //{
+        //    activeRod = !activeRod;
+        //    FishingRod.SetActive(activeRod);
+        //}
             
     }
     // Update is called once per frame

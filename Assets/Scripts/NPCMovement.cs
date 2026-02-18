@@ -8,7 +8,9 @@ public class NPCMovement : MonoBehaviour
     public NavMeshAgent agent;
     public float range; //radius of sphere
     public Transform centerPoint; //centre of the area the agent wants to move around in
-
+    public Vector3 distanceToPlayer;
+    public GameObject Player;
+    public AudioSource AudioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,18 +23,29 @@ public class NPCMovement : MonoBehaviour
     void Update()
     {
 
-
-        
-            if (agent.remainingDistance <= agent.stoppingDistance) //done with path
-            {
-                Vector3 point;
-                if (RandomPoint(centerPoint.position, range, out point)) //pass in our centre point and radius of area
-                {
-                    Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                    agent.SetDestination(point);
-                }
-           
+        distanceToPlayer = Player.transform.position - transform.position;
+        if (distanceToPlayer.magnitude <= 170)
+        {
+            AudioSource.enabled = true;
+            agent.SetDestination(Player.transform.position);
+            return;
         }
+        else
+        {
+            AudioSource.enabled = false;
+        }
+        
+        if (agent.remainingDistance <= agent.stoppingDistance) //done with path
+        {
+            Vector3 point;
+            if (RandomPoint(centerPoint.position, range, out point)) //pass in our centre point and radius of area
+            {
+                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
+                agent.SetDestination(point);
+            }
+           
+    }
+            
       
 
 
