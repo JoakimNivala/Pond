@@ -11,7 +11,7 @@ public class FishSpawner : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.transform.tag == "Player")
+        if (other.transform.CompareTag("Player"))
         {
 
             for (int i = 0; i < 5; i++)
@@ -26,16 +26,26 @@ public class FishSpawner : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            for (int i=FishList.Count - 1; i >= 0; i--)
+            for (int i = FishList.Count - 1; i >= 0; i--)
             {
+                GameObject Fish = FishList[i];
+
+                if (Fish != null)
                 {
-                    GameObject fish = FishList[i];
-                    FishList.RemoveAt(i);
-                    Destroy(fish);
+                    if (Fish.transform.parent == null)
+                    {
+                        Destroy(Fish);
+                    }
                 }
+
+                FishList.RemoveAt(i);
             }
 
-            }
+
+
         }
+        }
+
+  
     }
 

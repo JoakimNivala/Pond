@@ -7,6 +7,8 @@ public class FishingRod : MonoBehaviour
     public bool isOn = true;
     public float horizontalSpeed = 2.0F;
     public float verticalSpeed = -2.0F;
+    public GameObject Bobber;
+    public int FishCount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +22,9 @@ public class FishingRod : MonoBehaviour
         {
             isOn = !isOn;
             _FishingRod.SetActive(isOn);
+            CheckFishes();
         }
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Debug.Log("LOL");
@@ -29,5 +33,22 @@ public class FishingRod : MonoBehaviour
             _FishingRod.transform.Rotate(v, h, 0);
         }
 
+    }
+
+    private void CheckFishes()
+    {
+        if (Bobber.transform.childCount > 0)
+        {
+            for (int i = 0; i < Bobber.transform.childCount; i++)
+            {
+                FishCount++;
+                GameObject fish = Bobber.transform.GetChild(i).gameObject;
+                Destroy(fish);
+
+            }
+            
+            Bobber.GetComponent<Collider>().enabled = true;
+
+        }
     }
 }

@@ -36,10 +36,9 @@ public class FishMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("ok");
             transform.SetParent(Bobber.transform);
             transform.position = Bobber.transform.position;
-            gameObject.GetComponent<Collider>().enabled = false;
+            //gameObject.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
 
@@ -47,7 +46,6 @@ public class FishMovement : MonoBehaviour
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-        Debug.Log("lol");
         Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 20.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
@@ -63,9 +61,11 @@ public class FishMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Bobber")
+        if(other.gameObject.CompareTag("Bobber"))
         {
             Bobber = other.gameObject;
+            Bobber.GetComponent<SphereCollider>().enabled = false;
         }
+      
     }
 }
