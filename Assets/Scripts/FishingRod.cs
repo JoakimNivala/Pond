@@ -9,25 +9,30 @@ public class FishingRod : MonoBehaviour
     public float verticalSpeed = -2.0F;
     public GameObject Bobber;
     public int FishCount;
+    private Quaternion StartingRot;
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         _FishingRod = GameObject.Find("FishingRod");
+        StartingRot = _FishingRod.transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
+        _FishingRod.transform.position = transform.position;
         if (Input.GetKeyUp(KeyCode.E))
         {
             isOn = !isOn;
             _FishingRod.SetActive(isOn);
             CheckFishes();
+            _FishingRod.transform.rotation = StartingRot;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            Debug.Log("LOL");
             float h = horizontalSpeed * Input.GetAxis("Mouse X");
             float v = verticalSpeed * Input.GetAxis("Mouse Y");
             _FishingRod.transform.Rotate(v, h, 0);

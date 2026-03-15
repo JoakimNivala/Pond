@@ -12,26 +12,28 @@ public class CameraScript : MonoBehaviour
 
     public Transform orientation;
     public float sensitivity;
-
+    public GameObject Player;
 
     public float sensX;
     public float sensY;
 
     private float yRotation;
     private float xRotation;
-
+    public Vector3 CameraOffset;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-       
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        CameraOffset = Player.transform.position - new Vector3(0, 0, 0.3f);
+        transform.position = CameraOffset;
         if (Input.GetKey(KeyCode.LeftControl))
         {
             return;
