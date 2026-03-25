@@ -7,11 +7,12 @@ TagManager:
   - Fish
   - Bobber
   - Basket
+  - Pellet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Fish
   - Water
   - UI
   - 

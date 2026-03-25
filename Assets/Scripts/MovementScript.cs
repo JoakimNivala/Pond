@@ -38,20 +38,16 @@ public class MovementScript : MonoBehaviour
     {
       
         player = GetComponent<GameObject>();
-        //player = GameObject.FindGameObjectWithTag("Player");
-        //rb = player.GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         orientation = GetComponent<Transform>();
         cam = Camera.main;
-        //FishingRod = GameObject.Find("FishingRod");
-        //RodPosition = FishingRod.transform.rotation;
+        
     }
 
 
     private void Update()
     {
         mouse += Input.mouseScrollDelta.y * ScrollSpeed;
-        //FishingRod.transform.localRotation = Quaternion.Euler(mouse, transform.rotation.y, transform.rotation.z);
 
         if (Input.GetKeyUp(KeyCode.Space) && m_jumping == false && grounded)
         {
@@ -92,41 +88,11 @@ public class MovementScript : MonoBehaviour
 
     }
 
-    //    if(Input.GetKey(KeyCode.W))
-    //    {
-    //        rb.AddRelativeForce(1 * 10f, 0, 0);
-    //    }
-
-    //    if (Input.GetKey(KeyCode.S))
-    //    {
-    //        rb.AddRelativeForce(1 * -10f, 0, 0);
-    //    }
-
-    //    if (Input.GetKey(KeyCode.A))
-    //    {
-    //        rb.AddTorque(0, -10f * 1, 0 );
-    //    }
-
-    //    if (Input.GetKey(KeyCode.D))
-    //    {
-    //        rb.AddTorque(0, 10f * 1, 0);
-    //    }
-    //    if (Input.GetKey(KeyCode.Space))
-    //    {
-    //        rb.AddForce(0, 10f, 0);
-    //    }
-
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
         verticalInput = Input.GetAxisRaw("Vertical");
-
-     
-      
-        
-       
-     
     }
 
     private void MovePlayer()
@@ -159,7 +125,6 @@ public class MovementScript : MonoBehaviour
             }
         }
     }
-
 
 }
 

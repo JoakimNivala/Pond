@@ -4,31 +4,37 @@ public class FishingRod : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject _FishingRod;
-    public bool isOn = true;
+    public bool isOn = false;
     public float horizontalSpeed = 2.0F;
     public float verticalSpeed = -2.0F;
     public GameObject Bobber;
     public int FishCount;
     private Quaternion StartingRot;
-   
+
+    [SerializeField]
+    private GameObject ShotGun;
+
+    [SerializeField]
+    private MovementScript playerMovement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        _FishingRod = GameObject.Find("FishingRod");
-        StartingRot = _FishingRod.transform.rotation;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         _FishingRod.transform.position = transform.position;
-        if (Input.GetKeyUp(KeyCode.E))
+       
+        if (Input.GetKeyUp(KeyCode.Alpha2) && !ShotGun.activeInHierarchy)
         {
             isOn = !isOn;
             _FishingRod.SetActive(isOn);
             CheckFishes();
-            _FishingRod.transform.rotation = StartingRot;
+            _FishingRod.transform.rotation = transform.rotation;
+            playerMovement.enabled = !isOn;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -36,6 +42,7 @@ public class FishingRod : MonoBehaviour
             float h = horizontalSpeed * Input.GetAxis("Mouse X");
             float v = verticalSpeed * Input.GetAxis("Mouse Y");
             _FishingRod.transform.Rotate(v, h, 0);
+            _FishingRod.transform.rotation = transform.rotation;
         }
 
     }

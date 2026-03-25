@@ -1,4 +1,3 @@
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +7,7 @@ public class FishMovement : MonoBehaviour
     public NavMeshAgent agent;
     public float range; //radius of sphere
     public Transform centerPoint; //centre of the area the agent wants to move around in
-  
+    private bool isWaitingForPath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,13 +23,13 @@ public class FishMovement : MonoBehaviour
 
         if (Bobber == null)
         {
-            if (agent.remainingDistance <= agent.stoppingDistance) //done with path
+            if (!isWaitingForPath && agent.remainingDistance <= agent.stoppingDistance) //done with path
             {
                 Vector3 point;
                 if (RandomPoint(centerPoint.position, range, out point)) //pass in our centre point and radius of area
                 {
-                    Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                    agent.SetDestination(point);
+                    //Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
+                    RequestMove(point);
                 }
             }
         }
@@ -40,9 +39,30 @@ public class FishMovement : MonoBehaviour
             transform.position = Bobber.transform.position;
             //gameObject.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
+            transform.GetComponent<MeshRenderer>().enabled = true;
         }
 
       
+    }
+
+    void RequestMove(Vector3 target)
+    {
+        isWaitingForPath = true;
+        NavMeshQueryFilter filter = new NavMeshQueryFilter();
+        filter.agentTypeID = agent.agentTypeID;
+        filter.areaMask = NavMesh.AllAreas;
+
+        NPCMasterScript.Instance.RequestPath(transform.position, target, filter, OnPathFound);
+    }
+
+    // This is the "Callback" the Manager triggers
+    void OnPathFound(NavMeshPath path, bool success)
+    {
+        isWaitingForPath = false; // We got an answer, we can request again later
+        if (success && agent.enabled)
+        {
+            agent.SetPath(path);
+        }
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -59,6 +79,8 @@ public class FishMovement : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
+
+  
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.CompareTag("Bobber"))

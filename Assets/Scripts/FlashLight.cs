@@ -23,7 +23,7 @@ public class FlashLight : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            Debug.Log("LOL");
+           
             float h = horizontalSpeed * Input.GetAxis("Mouse X");
             float v = verticalSpeed * Input.GetAxis("Mouse Y");
             _FlashLight.transform.Rotate(v, h, 0);
