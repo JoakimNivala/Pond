@@ -60,7 +60,7 @@ public class NPCMovement : MonoBehaviour
             Vector3 point;
             if (RandomPoint(centerPoint.position, range, out point)) //pass in our centre point and radius of area
             {
-                Debug.DrawRay(point, Vector3.up, Color.red, 1.0f); //so you can see with gizmos
+                Debug.DrawRay(point, Vector3.up, Color.red, 20.0f); //so you can see with gizmos
                 RequestMove(point);
             }      
         }

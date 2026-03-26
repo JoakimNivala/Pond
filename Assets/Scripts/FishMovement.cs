@@ -8,6 +8,7 @@ public class FishMovement : MonoBehaviour
     public float range; //radius of sphere
     public Transform centerPoint; //centre of the area the agent wants to move around in
     private bool isWaitingForPath;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +20,7 @@ public class FishMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
 
         if (Bobber == null)
         {

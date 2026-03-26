@@ -34,14 +34,12 @@ public class WendigoScript : MonoBehaviour
                 if (RandomPoint(centerPoint.position, range, out point) && ((agent.remainingDistance <= agent.stoppingDistance))) //pass in our centre point and radius of area
                 {
                     Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                    agent.SetDestination(point);
+                    RequestMove(point);
                     agent.speed = 100f;
                     StartCoroutine(RunAway());
 
                 
             }
-            
-           
         }
         float distance = Vector3.Distance(Player.transform.position, transform.position);
 
