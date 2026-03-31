@@ -1,21 +1,24 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Pellet : MonoBehaviour
 {
-    public GameObject Barrel;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Barrel = GameObject.Find("Barrel");
-        transform.position = Barrel.transform.position;
+        
         StartCoroutine(DestroyBullet());
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.GetComponent<Rigidbody>().AddForce(Barrel.transform.forward * 100f);
+        GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 1.2f, ForceMode.Impulse);
         
     }
 

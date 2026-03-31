@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class WendigoScript : MonoBehaviour
 {
+    private static WaitForSeconds _waitForSeconds5 = new WaitForSeconds(5);
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public NavMeshAgent agent;
@@ -14,11 +16,12 @@ public class WendigoScript : MonoBehaviour
     public AudioSource AudioSource;
     public bool shot;
     private bool isWaitingForPath;
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        animator = GetComponent<Animator>();
         shot = false;
         agent = GetComponent<NavMeshAgent>();
     }
@@ -31,14 +34,15 @@ public class WendigoScript : MonoBehaviour
             
                 Vector3 point;
                 Debug.Log("Wendigo shot");
-                if (RandomPoint(centerPoint.position, range, out point) && ((agent.remainingDistance <= agent.stoppingDistance))) //pass in our centre point and radius of area
+                if (RandomPoint(centerPoint.position, range, out point) ) //pass in our centre point and radius of area
                 {
                     Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                    RequestMove(point);
                     agent.speed = 100f;
-                    StartCoroutine(RunAway());
+                    RequestMove(point);
 
-                
+                    animator.SetBool("Run", true);
+                    StartCoroutine(RunAway());
+                  
             }
         }
         float distance = Vector3.Distance(Player.transform.position, transform.position);
@@ -118,10 +122,12 @@ public class WendigoScript : MonoBehaviour
     }
     IEnumerator RunAway()
     {
-        yield return new WaitForSeconds(5);
+        yield return _waitForSeconds5;
         {
+            Debug.Log("Hello?");
             agent.speed = 4f;
             shot = false;
+            animator.SetBool("Run", false);
 
         }
 

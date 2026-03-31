@@ -9,7 +9,6 @@ public class FishingRod : MonoBehaviour
     public float verticalSpeed = -2.0F;
     public GameObject Bobber;
     public int FishCount;
-    private Quaternion StartingRot;
 
     [SerializeField]
     private GameObject ShotGun;
@@ -17,12 +16,11 @@ public class FishingRod : MonoBehaviour
     [SerializeField]
     private MovementScript playerMovement;
 
+    [SerializeField]
+    private QuestManager questManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
+ 
     // Update is called once per frame
     void Update()
     {
@@ -53,7 +51,7 @@ public class FishingRod : MonoBehaviour
         {
             for (int i = 0; i < Bobber.transform.childCount; i++)
             {
-                FishCount++;
+                questManager.UpdateFishCount();
                 GameObject fish = Bobber.transform.GetChild(i).gameObject;
                 Destroy(fish);
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class ShotgunLogic : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class ShotgunLogic : MonoBehaviour
 
     [SerializeField]
     private GameObject ShotGun;
+
+    [SerializeField]
+    private List<Transform> PelletSpread;
 
     [SerializeField]
     private GameObject FishingRod;
@@ -41,14 +45,13 @@ public class ShotgunLogic : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Mouse0) && Ammo > 0 && isOn == true)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 8; i++)
             {
-                Instantiate(pellet);
+                Vector3 worldPos = PelletSpread[i].position;
+                Instantiate(pellet, worldPos, PelletSpread[i].rotation);
                
             }
             Ammo--;
-            
-
         }
         if (Input.GetKeyUp(KeyCode.R) && ExtraAmmo > 0 && Ammo != 2)
         {

@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
+    private static WaitForSeconds _waitForSeconds5 = new WaitForSeconds(5);
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
- 
+
     public NavMeshAgent agent;
     public float range; //radius of sphere
     public Transform centerPoint; //centre of the area the agent wants to move around in
@@ -15,11 +17,13 @@ public class NPCMovement : MonoBehaviour
     public AudioSource AudioSource;
     private bool shot;
     public bool isWaitingForPath;
+    private Animator animator;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-    
+        animator = GetComponent<Animator>();
         shot = false;
         agent = GetComponent<NavMeshAgent>();
     }
@@ -30,10 +34,11 @@ public class NPCMovement : MonoBehaviour
         
         if (shot)
         {
+            int RandomAnim = Random.Range(1, 3);
+            animator.SetBool("Shot"+RandomAnim, true);
             //Might want to delete the script entirely after this as well
-            GetComponent<NavMeshAgent>().enabled = false;
-            GetComponent<Animator>().enabled = false;
-            GetComponent<AudioSource>().enabled = false;
+            agent.enabled = false;
+            
             StartCoroutine(DestroyScript());
             return;
         }
@@ -49,10 +54,24 @@ public class NPCMovement : MonoBehaviour
                 
                 RequestMove(Player.transform.position);
             }
+            if (distance < 4)
+            {
+                animator.SetBool("Idle",true);
+                agent.isStopped = true;
+                AudioSource.enabled = false;
+               
+            }
+            else
+            {
+                animator.SetBool("Idle", false);
+                agent.isStopped = false;   
+                AudioSource.enabled=true;
+            }
         }
         else
         {
             AudioSource.enabled = false;
+            
         }
         
         if (!isWaitingForPath && agent.remainingDistance <= agent.stoppingDistance) //done with path
@@ -114,7 +133,9 @@ public class NPCMovement : MonoBehaviour
 
     IEnumerator DestroyScript()
     {
-        yield return new WaitForSeconds(2);
+        yield return _waitForSeconds5;
+        animator.enabled = false;
+        AudioSource.enabled = false;
         Destroy(this);
 
     }
