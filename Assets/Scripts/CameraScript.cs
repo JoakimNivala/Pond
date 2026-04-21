@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraScript : MonoBehaviour
 {
     // Start is called before the fir
@@ -21,6 +22,8 @@ public class CameraScript : MonoBehaviour
     private float xRotation;
     public Vector3 CameraOffset;
 
+    [SerializeField]
+    private GameObject Menu;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -28,6 +31,7 @@ public class CameraScript : MonoBehaviour
         
 
     }
+  
 
     // Update is called once per frame
     void Update()
@@ -38,7 +42,10 @@ public class CameraScript : MonoBehaviour
         {
             return;
         }
-
+        if (Menu.activeSelf)
+        {
+            return;
+        }
         MouseMovement();
     }
 
@@ -56,4 +63,5 @@ public class CameraScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
+  
 }

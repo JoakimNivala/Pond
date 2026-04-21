@@ -8,13 +8,13 @@ public class ShotgunLogic : MonoBehaviour
     public float speed;
 
     [SerializeField]
-    private int Ammo;
+    public int Ammo;
 
     [SerializeField]
     private int FullBarrel;
 
     [SerializeField]
-    private int ExtraAmmo;
+    public int ExtraAmmo;
 
     public bool isOn;
 
@@ -47,8 +47,12 @@ public class ShotgunLogic : MonoBehaviour
         {
             for (int i = 0; i < 8; i++)
             {
-                Vector3 worldPos = PelletSpread[i].position;
-                Instantiate(pellet, worldPos, PelletSpread[i].rotation);
+                float randomX = Random.Range(-30f, 30f);
+                float randomY = Random.Range(-30f, 30f);
+                Quaternion randomRotation = Quaternion.Euler(randomX, randomY, 0f);
+                Vector3 worldPos = PelletSpread[0].position;
+                //no idea does this work
+                Instantiate(pellet, worldPos, PelletSpread[0].rotation * randomRotation);
                
             }
             Ammo--;

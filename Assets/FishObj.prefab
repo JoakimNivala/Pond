@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 7175789037189818165}
   - component: {fileID: 5741220949769927963}
   - component: {fileID: 7794253262204290466}
+  - component: {fileID: 528631858510521035}
   m_Layer: 3
-  m_Name: Cube
+  m_Name: FishObj
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +114,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.2, y: 6.18, z: 12.49}
+  m_Size: {x: 12.2, y: 20.97, z: 12.49}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7175789037189818165
 Rigidbody:
@@ -158,6 +159,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   range: 30.54
   centerPoint: {fileID: 0}
+  ID: 0
 --- !u!195 &7794253262204290466
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -180,3 +182,16 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &528631858510521035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684374843498299113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdf9c148eb8eba4bbd0f23b339f3a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  id: 0

@@ -14,7 +14,6 @@ public class MovementScript : MonoBehaviour
     private float playerSpeed = 5.0f;
     private float gravityValue = 0.15f;
     private RaycastHit hit;
-    //private GameObject FishingRod;
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -24,9 +23,8 @@ public class MovementScript : MonoBehaviour
     public float jumpTime;
     CharacterController controller;
     private float ScrollSpeed = 1f;
-    private Quaternion RodPosition;
     public float mouse;
-    public bool activeRod = true;
+    public bool activeRod;
     
 
 
@@ -46,6 +44,10 @@ public class MovementScript : MonoBehaviour
 
     private void Update()
     {
+        if (PauseController.isGamePaused)
+        {
+            return;
+        }
         mouse += Input.mouseScrollDelta.y * ScrollSpeed;
 
         if (Input.GetKeyUp(KeyCode.Space) && m_jumping == false && grounded)
@@ -77,6 +79,10 @@ public class MovementScript : MonoBehaviour
     {
       
         playerGravity();
+        if(activeRod)
+        {
+            return;
+        }
         MovePlayer();
         MyInput();
       
@@ -118,7 +124,7 @@ public class MovementScript : MonoBehaviour
         {
           
             controller.Move(Vector3.down * gravityValue);
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.81f))
             {
              grounded = true;
             }

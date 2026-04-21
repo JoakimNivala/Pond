@@ -8,6 +8,7 @@ TagManager:
   - Bobber
   - Basket
   - Pellet
+  - Ground
   layers:
   - Default
   - TransparentFX

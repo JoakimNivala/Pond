@@ -16,11 +16,17 @@ public class FishingRod : MonoBehaviour
     [SerializeField]
     private MovementScript playerMovement;
 
+    private InventoryController inventoryController;
+
     [SerializeField]
-    private QuestManager questManager;
+    private GameObject FishInventoryObj;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
- 
+
+    private void Start()
+    {
+        inventoryController = FindFirstObjectByType<InventoryController>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -32,7 +38,7 @@ public class FishingRod : MonoBehaviour
             _FishingRod.SetActive(isOn);
             CheckFishes();
             _FishingRod.transform.rotation = transform.rotation;
-            playerMovement.enabled = !isOn;
+            playerMovement.activeRod = isOn;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -49,13 +55,14 @@ public class FishingRod : MonoBehaviour
     {
         if (Bobber.transform.childCount > 0)
         {
-            for (int i = 0; i < Bobber.transform.childCount; i++)
-            {
-                questManager.UpdateFishCount();
-                GameObject fish = Bobber.transform.GetChild(i).gameObject;
+            Debug.Log("HELLO?");
+            
+                GameObject fish = Bobber.transform.GetChild(0).gameObject;
+                Item item = FishInventoryObj.GetComponent<Item>();
+                bool itemAdded = inventoryController.Additem(item.gameObject);
                 Destroy(fish);
 
-            }
+            
             
             Bobber.GetComponent<Collider>().enabled = true;
 
