@@ -769,7 +769,6 @@ Transform:
   m_Children:
   - {fileID: 1656483849}
   - {fileID: 1873219845}
-  - {fileID: 827438619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
@@ -877,7 +876,7 @@ MonoBehaviour:
   - {fileID: 1996202108}
   - {fileID: 1205362975}
   - {fileID: 1583693187}
-  Ammo: 2
+  Ammo: 400
   FullBarrel: 2
   ExtraAmmo: 4
   isOn: 0
@@ -2961,9 +2960,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827438618}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -9.313227e-10, y: -0.33704978, z: -0.000000005587936, w: 0.94148684}
+  m_LocalPosition: {x: 161.283, y: 5.2057223, z: 356.594}
+  m_LocalScale: {x: 0.512351, y: 0.7143127, z: 0.6416174}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 998644147}
@@ -2974,7 +2973,7 @@ Transform:
   - {fileID: 1996202109}
   - {fileID: 1205362976}
   - {fileID: 1583693193}
-  m_Father: {fileID: 330585546}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &894305687
 PrefabInstance:
@@ -10173,10 +10172,10 @@ Light:
   m_GameObject: {fileID: 1656483848}
   m_Enabled: 1
   serializedVersion: 12
-  m_Type: 0
+  m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.09
-  m_Range: 23.9
+  m_Intensity: 4.4
+  m_Range: 71.2
   m_SpotAngle: 56.2
   m_InnerSpotAngle: 18.8
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -15936,3 +15935,4 @@ SceneRoots:
   - {fileID: 1366633489}
   - {fileID: 1148472722}
   - {fileID: 1237223703}
+  - {fileID: 827438619}

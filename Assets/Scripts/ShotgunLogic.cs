@@ -6,7 +6,9 @@ using Unity.VisualScripting;
 public class ShotgunLogic : MonoBehaviour
 {
     public List<GameObject> pellets;
-    
+
+    private float randomX;
+    private float randomY;
 
     [SerializeField]
     public int Ammo;
@@ -27,6 +29,8 @@ public class ShotgunLogic : MonoBehaviour
 
     [SerializeField]
     private GameObject FishingRod;
+
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,6 +42,8 @@ public class ShotgunLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        randomX = Random.Range(-20f, 20f);
+        randomY = Random.Range(-20f, 20f);
         if (Input.GetKeyUp(KeyCode.Alpha1) && !FishingRod.activeInHierarchy)
         {
             isOn = !isOn;
@@ -49,20 +55,29 @@ public class ShotgunLogic : MonoBehaviour
         {
             for (int i = 0; i < 8; i++)
             {
-                if (pellets[i].activeInHierarchy)
-                {
-                    pellets[i].SetActive(false);
-                }
-                float randomX = Random.Range(-5f, 5f);
-                float randomY = Random.Range(-5f, 5f);
-                Quaternion randomRotation = Quaternion.Euler(randomX, randomY, 0f);
+               
+                Rigidbody rb = pellets[i].GetComponent<Rigidbody>();
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+
+               
                 Vector3 worldPos = PelletSpread[0].position;
+                pellets[i].transform.position = worldPos;
+
+                Quaternion spread = Quaternion.Euler(
+                Random.Range(-randomX, randomX),   
+                Random.Range(-randomY, randomY),
+                0f
+            );
+                pellets[i].transform.rotation = PelletSpread[0].rotation * spread;
+
                 //no idea does this work
                 pellets[i].SetActive(true);
-                pellets[i].transform.position = worldPos;
-                pellets[i].GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 10.4f, ForceMode.Impulse);
-                pellets[i].transform.rotation = PelletSpread[0].rotation * randomRotation;
-               
+                
+                pellets[i].GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 50.4f, ForceMode.Impulse);
+
+
+
 
 
             }
