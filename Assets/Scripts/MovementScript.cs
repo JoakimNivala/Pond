@@ -72,19 +72,19 @@ public class MovementScript : MonoBehaviour
         //    activeRod = !activeRod;
         //    FishingRod.SetActive(activeRod);
         //}
-            
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-      
         playerGravity();
-        if(activeRod)
+        if (activeRod)
         {
             return;
         }
         MovePlayer();
         MyInput();
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+      
+      
       
 
 

@@ -26,6 +26,7 @@ public class NPCMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         shot = false;
         agent = GetComponent<NavMeshAgent>();
+        animator.enabled = false;
     }
 
     // Update is called once per frame
@@ -47,6 +48,7 @@ public class NPCMovement : MonoBehaviour
         float distance = Vector3.Distance(Player.transform.position, transform.position);
         if (distance <= 170)
         {
+            animator.enabled = true;
             AudioSource.enabled = true;
             // Optimization: Only request a new path if we aren't already waiting for one
             if (!isWaitingForPath)
@@ -99,7 +101,6 @@ public class NPCMovement : MonoBehaviour
     // This is the "Callback" the Manager triggers
     void OnPathFound(NavMeshPath path, bool success)
     {
-        Debug.Log("path found for:" + gameObject.name);
         isWaitingForPath = false; 
         if (success && agent.enabled)
         {

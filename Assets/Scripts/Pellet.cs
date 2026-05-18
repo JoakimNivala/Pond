@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Pellet : MonoBehaviour
@@ -9,23 +10,24 @@ public class Pellet : MonoBehaviour
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-        StartCoroutine(DestroyBullet());
-    }
+   
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 1.2f, ForceMode.Impulse);
+       
         
     }
 
-    IEnumerator DestroyBullet()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        // suspend execution for 5 seconds
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            
+            gameObject.SetActive(false);
+        }
     }
+
+   
 }
